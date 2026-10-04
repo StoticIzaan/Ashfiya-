@@ -1,1 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A website about you</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+@property --w{syntax:'<number>';inherits:true;initial-value:0}
+:root{--bg:#171229;--ink:#f6eef0;--dim:#a99bb8;--peach:#ffb9a3;--rose:#ff9db5;--lav:#b9a8ff;--ui:'Nunito',system-ui,sans-serif;--serif:'Fraunces',Georgia,serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);overflow:hidden}
+body{font-family:var(--ui);-webkit-tap-highlight-color:transparent;user-select:none;transition:--w 5s ease}
+.glow{position:fixed;inset:-25%;pointer-events:none;background:radial-gradient(40% 36% at 25% 22%,rgba(185,168,255,calc(.28 - var(--w)*.1)),transparent 70%),radial-gradient(46% 42% at 78% 82%,rgba(255,157,181,calc(.1 + var(--w)*.22)),transparent 70%);animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(4%,3%,0) scale(1.08)}}
+.bk{position:fixed;bottom:-30px;border-radius:50%;background:rgba(255,185,163,.16);filter:blur(1.5px);pointer-events:none;animation:up linear infinite}
+@keyframes up{to{transform:translateY(-110vh) translateX(20px)}}
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+header{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(16px + env(safe-area-inset-top,0px)) 20px 12px;font-size:13px;font-weight:600;color:var(--dim);z-index:3;transition:opacity 1.5s}
+.st{display:flex;align-items:center;gap:9px}
+.st i{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--peach) 40%,var(--lav));box-shadow:0 0 14px rgba(255,157,181,.6);animation:pl 2.4s ease-in-out infinite}
+@keyframes pl{50%{opacity:.45}}
+#snd{font:700 12px var(--ui);color:var(--dim);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:7px 13px;cursor:pointer}
+#log{position:fixed;inset:0;overflow-y:auto;padding:calc(64px + env(safe-area-inset-top,0px)) 18px 190px;transition:opacity 1.5s;scrollbar-width:none}
+#log::-webkit-scrollbar{display:none}
+#col{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.b{align-self:flex-start;max-width:82%;padding:12px 17px;border-radius:22px 22px 22px 7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);font-size:17px;line-height:1.4;animation:pop .45s cubic-bezier(.2,1.4,.4,1) both}
+.b.me{align-self:flex-end;border-radius:22px 22px 7px 22px;background:linear-gradient(135deg,var(--peach),var(--rose));border:0;color:#3a1830;font-weight:700}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.92)}}
+.b.t{display:flex;gap:5px;padding:16px 18px}
+.b.t i{width:7px;height:7px;border-radius:50%;background:var(--dim);animation:bn 1s infinite}
+.b.t i:nth-child(2){animation-delay:.15s}.b.t i:nth-child(3){animation-delay:.3s}
+@keyframes bn{40%{transform:translateY(-5px);background:var(--ink)}}
+#tray{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:46px 18px calc(24px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--bg) 55%);z-index:2;transition:opacity 1.5s}
+.pill{font:700 15px var(--ui);color:#3a1830;background:linear-gradient(135deg,var(--peach),var(--rose));border:0;border-radius:99px;padding:14px 22px;cursor:pointer;box-shadow:0 6px 22px rgba(255,157,181,.25);animation:pop .5s cubic-bezier(.2,1.4,.4,1) both;transition:transform .15s}
+.pill:active{transform:scale(.93)}
+:focus-visible{outline:2px solid var(--lav);outline-offset:3px}
+.pt{position:fixed;color:var(--rose);pointer-events:none;z-index:9;animation:pt 1.1s ease-out forwards}
+@keyframes pt{to{transform:translate(var(--dx),-80px);opacity:0}}
+#intro{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;text-align:center;padding:30px;background:var(--bg);transition:opacity 1s}
+#intro p{font:300 clamp(28px,7.5vw,40px)/1.3 var(--serif);max-width:15em}
+#intro .orb{width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--peach) 35%,var(--lav) 90%);box-shadow:0 0 60px rgba(255,157,181,.5);animation:fl 5s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+#end{position:fixed;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;pointer-events:none}
+.fl{font:300 clamp(30px,8vw,44px)/1.3 var(--serif);max-width:15em;opacity:0;filter:blur(6px);transform:translateY(8px);transition:opacity 1.4s,filter 1.4s,transform 1.4s}
+.fl.in{opacity:1;filter:none;transform:none}
+.name{font:400 clamp(30px,10vw,56px) var(--serif);color:var(--peach);letter-spacing:.9em;text-indent:.9em;opacity:0;transition:opacity 3.5s,letter-spacing 7s cubic-bezier(.2,.7,.2,1),text-indent 7s cubic-bezier(.2,.7,.2,1)}
+.name.in{opacity:1;letter-spacing:.32em;text-indent:.32em}
+.tail{margin-top:30px;font-style:italic;font-size:clamp(20px,5vw,26px);color:var(--dim)}
+.love{margin-top:22px;font-size:clamp(24px,6.5vw,32px);color:var(--rose)}
+#dot{position:fixed;left:50%;bottom:calc(36px + env(safe-area-inset-bottom,0px));width:9px;height:9px;margin-left:-4px;border-radius:50%;background:var(--peach);opacity:0;transition:opacity 1s;z-index:6}
+#dot.on{opacity:.9;animation:pl 1.8s ease-in-out infinite}
+body.quiet #log,body.quiet #tray,body.quiet header{opacity:0;pointer-events:none}
+#end.out{opacity:0;transition:opacity 1.5s}
+.sign{margin-top:28px;font-size:clamp(20px,5vw,26px);font-style:italic;color:var(--peach)}
+.again{margin-top:46px;pointer-events:auto;background:rgba(255,255,255,.08);color:var(--dim);box-shadow:none;border:1px solid rgba(255,255,255,.14);font-size:13px;padding:11px 18px}
+@media (prefers-reduced-motion:reduce){.glow,.orb,.b.t i,.bk{animation:none}}
+</style>
+</head>
+<body>
+<div class="glow"></div><div class="grain"></div>
+<header><div class="st"><i></i>just thinking</div><button id="snd" aria-label="Toggle sound">sound on</button></header>
+<main id="log"><div id="col"></div></main>
+<div id="tray"></div>
+<div id="end"></div><div id="dot"></div>
+<div id="intro"><div class="orb"></div><p>I'm making something for you.</p><button class="pill" id="go">Come in</button></div>
+<script>
+// ---- Optional: add your own real lines here. They appear as chat bubbles near the end. ----
+// Example: const ME = { extra: ["The things you care about.", "How you describe your day."] };
+// Your name, shown as a quiet sign-off on the last screen. Leave "" to skip.
+const ME = { extra: [], from: "" };
+// -----------------------------------------------------------------------------------------
+
+const $=s=>document.querySelector(s),sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const col=$('#col'),log=$('#log'),tray=$('#tray'),end=$('#end'),dot=$('#dot');
+const W=n=>document.body.style.setProperty('--w',n);
+for(let i=0;i<12;i++){const d=document.createElement('div');d.className='bk';const s=4+Math.random()*10;d.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${16+Math.random()*18}s;animation-delay:${-Math.random()*30}s`;document.body.prepend(d)}
+
+// ---- cute sounds: soft music-box / marimba bells on a happy pentatonic scale ----
+let ac,on=true;
+function bell(f,t=0,d=.5,v=.05){
+  if(!ac||!on)return;const n=ac.currentTime+t,g=ac.createGain();
+  g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(v,n+.012);g.gain.exponentialRampToValueAtTime(.0001,n+d);g.connect(ac.destination);
+  [[f,1],[f*2,.28],[f*3,.08]].forEach(([fr,a])=>{const o=ac.createOscillator(),h=ac.createGain();o.type='sine';o.frequency.value=fr;h.gain.value=a;o.connect(h);h.connect(g);o.start(n);o.stop(n+d+.05)});
+}
+const P=[523,587,659,784,880,1047];
+const pop=()=>bell(P[Math.floor(Math.random()*5)],0,.45,.05);          // message arrives
+const tap=()=>{bell(784,0,.25,.04);bell(1047,.07,.3,.035)};            // she taps
+const oops=()=>{bell(659,0,.3,.05);bell(880,.13,.5,.05)};              // the funny moments
+const chime=()=>[523,659,784,1047,1319].forEach((f,i)=>bell(f,i*.3,1.8,.045)); // her name
+$('#snd').onclick=e=>{on=!on;e.target.textContent=on?'sound on':'sound off';tap()};
+
+function burst(el){const r=el.getBoundingClientRect();for(let i=0;i<6;i++){const s=document.createElement('span');s.className='pt';s.textContent='♡';s.style.left=(r.left+r.width*Math.random())+'px';s.style.top=r.top+'px';s.style.setProperty('--dx',(Math.random()*70-35)+'px');s.style.fontSize=(10+Math.random()*9)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),1200)}}
+
+// ---- chat helpers ----
+function bub(t,c=''){const d=document.createElement('div');d.className='b '+c;d.textContent=t;col.appendChild(d);log.scrollTo({top:log.scrollHeight,behavior:'smooth'});return d}
+async function say(t,o={}){
+  const d=bub('','t');d.innerHTML='<i></i><i></i><i></i>';
+  await sleep(Math.min(400+t.length*14,1100));
+  d.className='b';d.textContent=t;(o.oops?oops:pop)();
+  log.scrollTo({top:log.scrollHeight,behavior:'smooth'});
+  await sleep(550);
+}
+async function ask(opts){
+  await sleep(250);
+  return new Promise(res=>{
+    tray.innerHTML='';
+    opts.forEach((o,i)=>{const b=document.createElement('button');b.className='pill';b.textContent=o;b.style.animationDelay=i*.08+'s';
+      b.onclick=()=>{tap();burst(b);tray.innerHTML='';bub(o,'me');res(i)};tray.appendChild(b)});
+  });
+}
+const nextTap=(min=1300)=>new Promise(r=>{const t0=Date.now();setTimeout(()=>dot.classList.add('on'),min+600);
+  const h=()=>{if(Date.now()-t0<min)return;removeEventListener('pointerdown',h);dot.classList.remove('on');tap();r()};addEventListener('pointerdown',h)});
+
+async function finale(){
+  document.body.classList.add('quiet');W(1);await sleep(2200);
+  const lines=["I think I finally figured it out.","I wasn't looking for a topic.","I was looking for a reason to make something for you.","And somehow…","Without meeting you. Without hearing you.","Everything led to you.","So this website is about you.","And how much I love you."];
+  for(const t of lines){
+    end.innerHTML=`<div class="fl">${t}</div>`;const f=end.firstChild;void f.offsetWidth;f.classList.add('in');
+    await nextTap();f.classList.remove('in');await sleep(1000);
+  }
+  end.innerHTML='<div class="name">ASHFIYA</div><div class="fl tail">Maybe that was the topic all along.</div><div class="fl love">I love you.</div>';
+  const n=end.querySelector('.name'),tl=end.querySelector('.tail'),lv=end.querySelector('.love');
+  void n.offsetWidth;n.classList.add('in');chime();
+  await sleep(6000);tl.classList.add('in');
+  await sleep(3500);lv.classList.add('in');bell(1319,0,1.6,.04);
+
+  // ---- the conclusion ----
+  await nextTap(5000);
+  end.classList.add('out');await sleep(1600);
+  const close=["So that's the website.","There was never a topic. Just a long way around to saying something simple.","I've never seen you, and I've never heard your voice.","And you still matter this much to me.","Thank you for being you."];
+  end.classList.remove('out');
+  for(let i=0;i<close.length;i++){
+    end.innerHTML=`<div class="fl">${close[i]}</div>`;const f=end.firstChild;void f.offsetWidth;f.classList.add('in');
+    if(i===close.length-1){bell(784,0,1.4,.04);bell(1047,.25,1.6,.035);break}
+    await nextTap();f.classList.remove('in');await sleep(1000);
+  }
+  if(ME.from){await sleep(3000);const s=document.createElement('div');s.className='fl sign';s.textContent='— '+ME.from;end.appendChild(s);void s.offsetWidth;s.classList.add('in')}
+  await sleep(4500);
+  const a=document.createElement('button');a.className='pill again';a.textContent='Start over';a.onclick=()=>location.reload();end.appendChild(a);
+}
+
+// She picks a part of herself. Every one turns into all of her.
+const parts={
+  think:{b:"The way you think",l:["The way you think.","I started writing about it.","Then I realized I'd have to include the things you say. And your moods. And what you care about.","At which point I wasn't writing about one thing anymore. I was writing about you."]},
+  say:{b:"The things you say",l:["The things you say.","I started a list.","Then I realized it wasn't really about the words.","It was about the person behind them. Which is just… you."]},
+  habits:{b:"Your little habits",l:["Your little habits.","I could write a whole page.","Then I noticed I was smiling at my screen.","Which is not a good paragraph."]},
+  feel:{b:"How you make me feel",l:["How you make me feel.","Okay, that's a big one.","I started a list.","It got longer every time I read it."]}
+};
+const after=["Okay… that wasn't supposed to happen.","Seriously?","I'm starting to think this isn't a coincidence."];
+const before=["Pick one.","Okay. Another one.","One more."];
+
+async function story(){
+  await say("I wanted to make a website about you.");
+  await say("Simple, right?");
+  await ask(["Aww. Simple"]);
+  await say("Except I couldn't decide which part of you to make it about.");
+  await ask(["Which parts?"]);
+  await say("Let's try a few. You pick.");
+  const left=Object.keys(parts);
+  for(let r=0;r<3;r++){
+    await say(before[r]);
+    const i=await ask(left.map(k=>parts[k].b));
+    const k=left.splice(i,1)[0];
+    for(const t of parts[k].l)await say(t);
+    await say(after[r],{oops:r<2});
+    W((r+1)*.25);
+  }
+  await ask(["Maybe it isn't"]);
+  await say("Yeah.");
+  await say("It's a little funny, honestly.");
+  await say("I've never seen you. I've never heard your voice.");
+  await say("And I still know how you think, what you care about, how your moods go.");
+  await say("Somehow you ended up in a pretty important place in my life.");
+  await say("I think that's kind of beautiful.");
+  await ask(["Me too"]);
+  await say("So it's not one thing.");
+  await say("It's all of it. It's you.");
+  await say("So I stopped trying to pick a part.");
+  if(ME.extra.length){await say("I did write a few things down though:");for(const t of ME.extra)await say(t)}
+  await ask(["Then what?"]);
+  await say("I figured out what this website is about.");
+  await ask(["Tell me"]);
+  await finale();
+}
+
+$('#go').onclick=()=>{
+  ac=new (window.AudioContext||window.webkitAudioContext)();tap();
+  const i=$('#intro');i.style.opacity=0;i.style.pointerEvents='none';setTimeout(()=>i.remove(),1000);
+  setTimeout(story,900);
+};
+</script>
+</body>
+</html>
 
